@@ -1,0 +1,85 @@
+﻿@model Popa_Miruna_proiect.Models.SpotifyViewModels.AlbumIndexData
+
+@{
+    ViewData["Title"] = "Albums";
+}
+
+<h2>Albums</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Album Name</th>
+            <th>Year</th>
+            <th>Song</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Albums)
+
+        {
+            string selectedRow = "";
+            if (item.ID == (int?)ViewData["AlbumID"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.AlbumName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @{
+                        foreach (var song in item.AlbumSongs)
+                        {
+                            @song.Song.ID @:  @song.Song.Title <br />
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Songs != null)
+{<h3>Album Songs in Selected Album</h3>
+ <table class="table">
+     <tr>
+         <th>
+         </th>
+         <th>Title</th>
+         <th>Singer</th>
+         <th>Price</th>
+     </tr>
+  
+     @foreach (var item in Model.Songs)
+     {
+         string selectedRow = ""; 
+         if (item.ID == (int?)ViewData["SongID"])
+         { 
+             selectedRow = "success"; 
+         }
+         <tr class="@selectedRow">
+     <td>
+             @Html.ActionLink("Select", "Index", new { songID = item.ID })
+         </td>
+     <td> @item.Title</td>
+     <td> @item.Singer </td>
+     <td> @item.Price</td>
+         </tr>
+}
+     </table>
+}
+     

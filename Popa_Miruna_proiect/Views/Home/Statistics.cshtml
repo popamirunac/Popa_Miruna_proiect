@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Popa_Miruna_proiect.Models.SpotifyViewModels.OrderGroup>
+@{
+    ViewData["Title"] = "Ordered Songs Statistics";
+    }
+ <h2>Ordered Songs Statistics</h2>
+<table>
+    <tr>
+    <th>
+        Order Date 
+    </th>
+    <th>
+        Ordered Songs 
+    </th>
+    </tr>
+    @foreach (var item in Model)
+{<tr>
+    <td>
+    @Html.DisplayFor(modelItem => item.OrderDate) 
+        </td>
+    <td>
+    @item.SongCount
+    </td>
+    </tr>
+    } 
+</table>
